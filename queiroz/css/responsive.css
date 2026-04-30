@@ -1,0 +1,11 @@
+/* RESPONSIVO: Regras para Mobile e Tablets */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 20px 15px;
+  }
+  
+  .format-toolbar {
+    justify-content: center;
+  }
+}

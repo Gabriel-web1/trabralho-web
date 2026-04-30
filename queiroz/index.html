@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistema de Questões com LaTeX</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/images.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script>
+    window.MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        tags: 'ams'
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-square-root-alt"></i> Sistema de Questões com LaTeX</h1>
+      <p class="description">Crie e gerencie questões com suporte completo a fórmulas matemáticas usando LaTeX</p>
+    </header>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fas fa-edit"></i> Editor de Questões</h2>
+      
+      <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i> Instruções</h3>
+        <ul>
+          <li>Use <code>$...$</code> para fórmulas inline (ex: $E = mc^2$)</li>
+          <li>Use <code>$$...$$</code> para fórmulas centralizadas (ex: $$\sum_{i=1}^n i = \frac{n(n+1)}{2}$$)</li>
+          <li>Use os botões de formatação para negrito, itálico, listas numeradas e alinhamento de texto</li>
+          <li>Clique no ícone de informação para mais detalhes sobre cada campo</li>
+        </ul>
+      </div>
+      
+      <div class="form-group">
+        <label for="enunciado">Enunciado da Questão 
+          <span class="tooltip">
+            <i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Digite o enunciado principal da questão. Use LaTeX para fórmulas matemáticas.</span>
+          </span>
+        </label>
+        
+        <div class="format-toolbar">
+          <button class="format-btn" onclick="formatText('bold')" title="Negrito"><i class="fas fa-bold"></i></button>
+          <button class="format-btn" onclick="formatText('italic')" title="Itálico"><i class="fas fa-italic"></i></button>
+          <button class="format-btn" onclick="inserirListaRomanos()" title="Lista Numerada (I, II, III...)"><i class="fas fa-list-ol"></i></button>
+          <button class="format-btn" onclick="formatText('insertUnorderedList')" title="Lista com Marcadores"><i class="fas fa-list-ul"></i></button>
+          <button class="format-btn" onclick="inserirFormulaLatex()" title="Inserir Fórmula LaTeX"><i class="fas fa-square-root-alt"></i></button>
+          
+          <div class="alignment-text-controls">
+            <button class="format-btn" onclick="formatText('justifyLeft')" title="Alinhar à Esquerda"><i class="fas fa-align-left"></i></button>
+            <button class="format-btn" onclick="formatText('justifyCenter')" title="Centralizar"><i class="fas fa-align-center"></i></button>
+            <button class="format-btn" onclick="formatText('justifyRight')" title="Alinhar à Direita"><i class="fas fa-align-right"></i></button>
+            <button class="format-btn" onclick="formatText('justifyFull')" title="Justificar"><i class="fas fa-align-justify"></i></button>
+          </div>
+        </div>
+        
+        <div class="editor-container">
+          <div id="enunciado" class="editor-content" contenteditable="true" oninput="atualizarPreview()" placeholder="Digite o enunciado da questão aqui..."></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="referencia">Referência do Enunciado</label>
+        <input type="text" id="referencia" placeholder="Fonte do enunciado (opcional)">
+      </div>
+
+      <div class="form-group image-section">
+        <label for="imagemEnunciado">Imagem para o Enunciado (opcional)</label>
+        <input type="file" id="imagemEnunciado" accept="image/*">
+        
+        <div class="image-controls">
+          <label for="escalaImagem">Escala da imagem:</label>
+          <input type="number" id="escalaImagem" min="0.1" max="3" step="0.1" value="1">
+          <span>(1 = tamanho original)</span>
+        </div>
+        
+        <div class="alignment-controls">
+          <label>Alinhamento:</label>
+          <button class="alignment-btn active" data-align="left" onclick="selecionarAlinhamento('left')">
+            <i class="fas fa-align-left"></i> Esquerda
+          </button>
+          <button class="alignment-btn" data-align="center" onclick="selecionarAlinhamento('center')">
+            <i class="fas fa-align-center"></i> Centro
+          </button>
+          <button class="alignment-btn" data-align="right" onclick="selecionarAlinhamento('right')">
+            <i class="fas fa-align-right"></i> Direita
+          </button>
+        </div>
+        
+        <div id="previewImagemEnunciado" class="image-preview"></div>
+        
+        <label for="referenciaImagem" style="margin-top: 10px;">Referência da Imagem</label>
+        <input type="text" id="referenciaImagem" placeholder="Fonte da imagem (opcional)">
+      </div>
+
+      <div class="form-group">
+        <label for="tipo">Tipo de Questão</label>
+        <select id="tipo" onchange="atualizarTipoPergunta()">
+          <option value="texto">Resposta Textual</option>
+          <option value="unica">Escolha Única</option>
+          <option value="multipla">Múltipla Escolha</option>
+          <option value="verdadeirofalse">Verdadeiro ou Falso</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="alternativasBox" style="display: none;">
+        <label>Alternativas 
+          <span class="tooltip">
+            <i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Adicione as opções de resposta. Marque a correta selecionando o círculo.</span>
+          </span>
+        </label>
+        <div class="alternativas-container" id="alternativas"></div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="adicionarAlternativa()">
+          <i class="fas fa-plus"></i> Adicionar Alternativa
+        </button>
+        <button type="button" class="btn btn-warning btn-sm" onclick="adicionarAlternativaComImagem()" style="margin-top: 10px;">
+          <i class="fas fa-image"></i> Adicionar Alternativa com Imagem
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label for="ano">Ano/Série</label>
+        <select id="ano" onchange="atualizarDisciplinas()">
+          <option value="primeiro">Primeiro Ano</option>
+          <option value="segundo">Segundo Ano</option>
+          <option value="terceiro">Terceiro Ano</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bimestre">Bimestre</label>
+        <select id="bimestre">
+          <option value="primeiro">Primeiro Bimestre</option>
+          <option value="segundo">Segundo Bimestre</option>
+          <option value="terceiro">Terceiro Bimestre</option>
+          <option value="quarto">Quarto Bimestre</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="materia">Matéria/Disciplina</label>
+        <select id="materia">
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Palavras-chave (separadas por vírgula)</label>
+        <input type="text" id="tags" placeholder="Ex: equação, álgebra, geometria">
+      </div>
+
+      <div class="form-group">
+        <label for="codigoQuestao">Código da Questão</label>
+        <div class="codigo-questao" id="codigoQuestao">-</div>
+        <small>Este código é gerado automaticamente</small>
+      </div>
+
+      <button class="btn btn-success" onclick="adicionarQuestao()">
+        <i class="fas fa-save"></i> Salvar Questão
+      </button>
+      <button class="btn btn-danger" onclick="limparFormulario()">
+        <i class="fas fa-trash"></i> Limpar Campos
+      </button>
+    </div>
+
+    <div class="preview-container">
+      <h2 class="card-title"><i class="fas fa-eye"></i> Pré-visualização</h2>
+      
+      <div class="latex-preview">
+        <h3><i class="fas fa-square-root-alt"></i> Renderização LaTeX</h3>
+        <p>Esta área mostrará a renderização das fórmulas em LaTeX conforme você digita.</p>
+      </div>
+      
+      <div id="preview">
+        <p class="instruction-text">As questões salvas aparecerão aqui</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

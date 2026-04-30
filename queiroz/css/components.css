@@ -1,0 +1,55 @@
+/* COMPONENTS: Elementos reutilizáveis (Cards, Botões, Formulários) */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Sombra mais suave e moderna */
+  padding: 25px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Formulários */
+.form-group { margin-bottom: 20px; }
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+input[type="text"], input[type="password"], select, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e5eb;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); /* Efeito moderno de foco */
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn:active { transform: scale(0.98); /* Feedback tátil ao clicar */ }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: #2980b9; transform: translateY(-2px); }
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: #27ae60; transform: translateY(-2px); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { background: #c0392b; transform: translateY(-2px); }

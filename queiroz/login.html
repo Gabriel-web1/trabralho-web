@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Sistema de Questões</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  
+  <style>
+    /* Estilos específicos de Layout para o Login (Centralizado) */
+    .login-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-card {
+      max-width: 420px;
+      width: 100%;
+      padding: 40px 30px;
+      animation: fadeIn 0.5s ease-out;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .login-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--primary);
+      text-decoration: none;
+      margin-top: 8px;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+    
+    .error-feedback {
+      background: #fdf2f2;
+      color: var(--danger);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+      border: 1px solid #f5c6cb;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+  </style>
+</head>
+<body>
+
+  <div class="login-layout">
+    <div class="card login-card" id="loginCard">
+      
+      <div class="login-header">
+        <i class="fas fa-square-root-alt login-icon"></i>
+        <h2 style="color: var(--secondary); font-size: 1.8rem; margin-bottom: 5px;">Bem-vindo</h2>
+        <p style="color: var(--gray);">Acesse o Sistema de Questões</p>
+      </div>
+
+      <div class="error-feedback" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i> E-mail ou senha incorretos.
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope"></i> E-mail ou Usuário</label>
+          <input type="text" id="email" placeholder="Digite 'admin'" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="password"><i class="fas fa-lock"></i> Senha</label>
+          <input type="password" id="password" class="form-control" placeholder="Digite '1234'" required>
+          <a href="#" class="forgot-link">Esqueci minha senha</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="btnSubmit" style="width: 100%; justify-content: center; margin-top: 15px; padding: 14px;">
+          <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

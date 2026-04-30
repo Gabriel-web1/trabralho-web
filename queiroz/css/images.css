@@ -1,0 +1,102 @@
+/* =========================================
+   SESSÃO DE IMAGENS E PRÉ-VISUALIZAÇÕES
+   ========================================= */
+
+.image-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #ddd;
+}
+
+.image-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.image-controls input {
+  width: 80px;
+}
+
+.image-preview {
+  max-width: 100%;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.alt-image-preview {
+  max-width: 150px;
+  max-height: 100px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.reference {
+  font-style: italic;
+  color: #666;
+  margin-top: 5px;
+  font-size: 0.9em;
+  text-align: right;
+}
+
+/* =========================================
+   CONTROLES DE ALINHAMENTO DE IMAGENS
+   ========================================= */
+
+.alignment-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.alignment-btn {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.alignment-btn:hover {
+  background: #f0f0f0;
+}
+
+.alignment-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.image-left {
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-right {
+  float: right;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,97 @@
+/* =========================================
+   EDITOR E FERRAMENTAS DE TEXTO
+   ========================================= */
+
+.editor-container {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  min-height: 150px;
+  margin-top: 5px;
+}
+
+.editor-content {
+  min-height: 120px;
+  outline: none;
+  padding: 5px;
+}
+
+.editor-content:focus {
+  border-color: var(--primary);
+}
+
+/* Barra de Formatação */
+.format-toolbar {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: #f0f0f0;
+  border-radius: 5px;
+  flex-wrap: wrap;
+}
+
+.format-btn {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.format-btn:hover {
+  background: #e0e0f0;
+}
+
+.format-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Controles de Alinhamento de Texto */
+.alignment-text-controls {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* =========================================
+   TOOLTIPS (DICAS VISUAIS NO HOVER)
+   ========================================= */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  color: var(--gray);
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--dark);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
